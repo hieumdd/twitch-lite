@@ -1,7 +1,9 @@
+require('dotenv').config();
+
 module.exports = {
   siteMetadata: {
-    siteUrl: "https://www.yourdomain.tld",
-    title: "Twitch Lite",
+    siteUrl: 'https://www.yourdomain.tld',
+    title: 'Twitch Lite',
   },
-  plugins: [],
+  plugins: ['@chakra-ui/gatsby-plugin'],
 };
