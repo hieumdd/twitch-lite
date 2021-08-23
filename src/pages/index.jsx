@@ -10,15 +10,19 @@ import TwitchChat from '../components/TwitchChat';
 const DEFAULT_CHANNEL = 'monstercat';
 
 const App = () => {
-  const [channel, setChannel] = useState();
-
-  useEffect(() => {
-    setChannel(localStorage.getItem('channel') ?? DEFAULT_CHANNEL);
-  }, []);
+  const [channel, setChannel] = useState(
+    localStorage.getItem('channel') ?? DEFAULT_CHANNEL,
+  );
+  const [loading, setLoading] = useState(true);
 
   const handleChange = (event) => {
     const channelToSet = event.target.value ?? DEFAULT_CHANNEL;
+    setLoading(true);
     setChannel(channelToSet);
+  };
+
+  const handleLoading = () => {
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -36,10 +40,18 @@ const App = () => {
             <TwitchChannel channel={channel} onChange={handleChange} />
           </WrapItem>
           <WrapItem className="shadow" flex="1 0 calc(70% - 1rem)">
-            <TwitchPlayer channel={channel} />
+            <TwitchPlayer
+              loading={loading}
+              handleLoading={handleLoading}
+              channel={channel}
+            />
           </WrapItem>
           <WrapItem className="shadow" flex="1 0 calc(30% - 1rem)">
-            <TwitchChat channel={channel} />
+            <TwitchChat
+              loading={loading}
+              handleLoading={handleLoading}
+              channel={channel}
+            />
           </WrapItem>
         </Wrap>
       </Center>

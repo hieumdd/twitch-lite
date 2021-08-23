@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { AspectRatio, Flex } from '@chakra-ui/react';
+import { AspectRatio, Flex, Skeleton } from '@chakra-ui/react';
 
 import queryString from 'query-string';
 
-const TwitchPlayer = ({ channel }) => {
+const TwitchPlayer = ({ loading, handleLoading, channel }) => {
   const src = queryString.stringifyUrl({
     url: 'https://player.twitch.tv/',
     query: {
@@ -17,18 +17,23 @@ const TwitchPlayer = ({ channel }) => {
 
   return (
     <AspectRatio as={Flex} w="100%" h="100%" ratio={16 / 9}>
-      <iframe
-        width="100%"
-        height="100%"
-        title="Twitch Player"
-        allowFullScreen
-        src={src}
-      />
+      <Skeleton isLoaded={!loading} w="100%" h="100%">
+        <iframe
+          width="100%"
+          height="100%"
+          title="Twitch Player"
+          allowFullScreen
+          src={src}
+          onLoad={handleLoading}
+        />
+      </Skeleton>
     </AspectRatio>
   );
 };
 
 TwitchPlayer.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  handleLoading: PropTypes.func.isRequired,
   channel: PropTypes.string.isRequired,
 };
 
