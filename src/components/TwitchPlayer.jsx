@@ -21,8 +21,8 @@ const TwitchPlayer = ({ channel }) => {
         width="100%"
         height="100%"
         title="Twitch Player"
-        src={src}
         allowFullScreen
+        src={src}
       />
     </AspectRatio>
   );

@@ -14,12 +14,7 @@ const TwitchChat = ({ channel }) => {
 
   return (
     <Flex w="100%" h="100%">
-      <iframe
-        width="100%"
-        height="100%"
-        title="Twitch Chat"
-        src={src}
-      />
+      <iframe width="100%" height="100%" title="Twitch Chat" src={src} />
     </Flex>
   );
 };
