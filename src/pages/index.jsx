@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { navigate } from 'gatsby';
+import PropTypes from 'prop-types';
+
+import queryString from 'query-string';
 
 import { Wrap, WrapItem } from '@chakra-ui/react';
 
+import withLocation from '../components/withLocation';
 import Layout from '../components/Layout';
 import Header from '../components/Header';
 import TwitchChannel from '../components/TwitchChannel';
@@ -10,16 +15,15 @@ import TwitchChat from '../components/TwitchChat';
 
 const DEFAULT_CHANNEL = 'monstercat';
 
-const App = () => {
+const App = ({ search }) => {
   const [channel, setChannel] = useState(
-    localStorage.getItem('channel') ?? DEFAULT_CHANNEL,
+    search.channel || localStorage.getItem('channel') || DEFAULT_CHANNEL,
   );
   const [loading, setLoading] = useState(true);
 
   const handleChange = (event) => {
-    const channelToSet = event.target.value ?? DEFAULT_CHANNEL;
     setLoading(true);
-    setChannel(channelToSet);
+    setChannel(event.target.value || DEFAULT_CHANNEL);
   };
 
   const handleLoading = () => {
@@ -28,6 +32,7 @@ const App = () => {
 
   useEffect(() => {
     localStorage.setItem('channel', channel);
+    navigate(queryString.stringifyUrl({ url: '/', query: { channel } }));
   }, [channel]);
 
   return (
@@ -58,4 +63,12 @@ const App = () => {
   );
 };
 
-export default App;
+App.propTypes = {
+  search: PropTypes.shape({ channel: PropTypes.string }),
+};
+
+App.defaultProps = {
+  search: { channel: DEFAULT_CHANNEL },
+};
+
+export default withLocation(App);
