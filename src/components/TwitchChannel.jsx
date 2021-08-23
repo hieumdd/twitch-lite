@@ -6,28 +6,32 @@ import {
   InputGroup,
   Input,
   InputLeftAddon,
+  InputRightElement,
+  Kbd,
 } from '@chakra-ui/react';
 
-const TwitchChannel = ({ channel, onChange }) => (
-  <Flex as="form" flex="3">
+const TwitchChannel = ({ term, onSubmit, onChange }) => (
+  <Flex as="form" flex="3" onSubmit={onSubmit}>
     <FormControl isRequired>
-      <InputGroup>
+      <InputGroup as={Flex} justify="center">
         <InputLeftAddon children="https://twitch.tv/" textColor="gray.800" />
         <Input
           type="text"
           bgColor="white"
           textColor="gray.800"
-          value={channel}
+          value={term}
           onChange={onChange}
         />
+        <InputRightElement mr="1rem" children={<Kbd>enter</Kbd>} />
       </InputGroup>
     </FormControl>
   </Flex>
 );
 
 TwitchChannel.propTypes = {
+  term: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  channel: PropTypes.string.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default TwitchChannel;

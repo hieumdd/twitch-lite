@@ -16,38 +16,38 @@ import TwitchChat from '../components/TwitchChat';
 const DEFAULT_CHANNEL = 'monstercat';
 
 const App = ({ search }) => {
-  const [channel, setChannel] = useState(
+  // const [channel, setChannel] = useState(
+  //   search.channel ||
+  //     (typeof window !== 'undefined' &&
+  //       window.localStorage.getItem('channel')) ||
+  //     DEFAULT_CHANNEL,
+  // );
+  const [term, setTerm] = useState(
     search.channel ||
       (typeof window !== 'undefined' &&
         window.localStorage.getItem('channel')) ||
       DEFAULT_CHANNEL,
   );
-  const [debouncedChannel, setDebouncedChannel] = useState(channel);
-  const [loading, setLoading] = useState(true);
+  const [channel, setChannel] = useState(term);
+  const [loading, setIsLoading] = useState(true);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setChannel(term);
+  };
 
   const handleChange = (event) => {
-    setChannel(event.target.value);
+    setTerm(event.target.value);
   };
 
   const handleLoading = () => {
-    setLoading(false);
+    setIsLoading(false);
   };
 
   useEffect(() => {
-    let wait;
-    if (channel) {
-      wait = setTimeout(() => {
-        setDebouncedChannel(channel || DEFAULT_CHANNEL);
-        window.localStorage.setItem('channel', channel);
-        navigate(queryString.stringifyUrl({ url: '/', query: { channel } }));
-        setLoading(true);
-      }, 1000);
-    } else {
-      wait = setTimeout(() => {
-        setChannel(DEFAULT_CHANNEL);
-      }, 10000);
-    }
-    return () => clearTimeout(wait);
+    window.localStorage.setItem('channel', channel);
+    navigate(queryString.stringifyUrl({ url: '/', query: { channel } }));
+    setIsLoading(true);
   }, [channel]);
 
   return (
@@ -72,7 +72,11 @@ const App = ({ search }) => {
           className="shadow"
           flex={{ base: '1 0 calc(100% - 1rem)', md: '1 0 calc(30% - 1rem)' }}
         >
-          <TwitchChannel channel={channel} onChange={handleChange} />
+          <TwitchChannel
+            term={term}
+            onSubmit={handleSubmit}
+            onChange={handleChange}
+          />
         </WrapItem>
         <WrapItem
           className="shadow"
@@ -81,7 +85,7 @@ const App = ({ search }) => {
           <TwitchPlayer
             loading={loading}
             handleLoading={handleLoading}
-            channel={debouncedChannel}
+            channel={channel}
           />
         </WrapItem>
         <WrapItem
@@ -91,7 +95,7 @@ const App = ({ search }) => {
           <TwitchChat
             loading={loading}
             handleLoading={handleLoading}
-            channel={debouncedChannel}
+            channel={channel}
           />
         </WrapItem>
       </Wrap>
