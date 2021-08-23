@@ -53,17 +53,26 @@ const App = ({ search }) => {
         <WrapItem flex="1 0 calc(70% - 1rem)">
           <Header />
         </WrapItem>
-        <WrapItem className="shadow" flex="1 0 calc(30% - 1rem)">
+        <WrapItem
+          className="shadow"
+          flex={{ base: '1 0 calc(100% - 1rem)', md: '1 0 calc(30% - 1rem)' }}
+        >
           <TwitchChannel channel={channel} onChange={handleChange} />
         </WrapItem>
-        <WrapItem className="shadow" flex="1 0 calc(70% - 1rem)">
+        <WrapItem
+          className="shadow"
+          flex={{ base: '1 0 calc(100% - 1rem)', md: '1 0 calc(70% - 1rem)' }}
+        >
           <TwitchPlayer
             loading={loading}
             handleLoading={handleLoading}
             channel={channel}
           />
         </WrapItem>
-        <WrapItem className="shadow" flex="1 0 calc(30% - 1rem)">
+        <WrapItem
+          className="shadow"
+          flex={{ base: '1 0 calc(100% - 1rem)', md: '1 0 calc(30% - 1rem)' }}
+        >
           <TwitchChat
             loading={loading}
             handleLoading={handleLoading}
