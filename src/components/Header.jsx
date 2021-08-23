@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 
-import { Flex, Heading, IconButton, Link } from '@chakra-ui/react';
+import { Flex, Heading, IconButton, Link, Tooltip } from '@chakra-ui/react';
 
 import { FaGithub } from 'react-icons/fa';
 
@@ -23,13 +23,15 @@ const Header = () => {
       <Heading as="h1" textColor="white" size="lg">
         Twitch Lite
       </Heading>
-      <IconButton
-        as={Link}
-        icon={<FaGithub />}
-        variant="solid"
-        size="md"
-        href={githubRepo}
-      />
+      <Tooltip label="Source Code">
+        <IconButton
+          as={Link}
+          icon={<FaGithub />}
+          variant="solid"
+          size="md"
+          href={githubRepo}
+        />
+      </Tooltip>
     </Flex>
   );
 };
