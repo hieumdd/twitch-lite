@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable implicit-arrow-linebreak */
+/* eslint-disable react/display-name */
 
 import React from 'react';
 import { Location } from '@reach/router';

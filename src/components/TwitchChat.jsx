@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { Flex, Skeleton } from '@chakra-ui/react';
 
 import queryString from 'query-string';
