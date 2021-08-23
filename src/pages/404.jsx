@@ -10,9 +10,11 @@ import Layout from '../components/Layout';
 const NotFound = () => (
   <Layout title="404">
     <Flex as={LinkBox} direction="column" justify="center" align="center">
-      <Icon as={FaHome} boxSize="8rem" />
+      <Icon as={FaHome} color="white" boxSize="8rem" />
       <LinkOverlay as={Link} to="/">
-        <Heading as="h1">404</Heading>
+        <Heading as="h1" textColor="white">
+          404
+        </Heading>
       </LinkOverlay>
     </Flex>
   </Layout>
