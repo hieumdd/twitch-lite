@@ -37,7 +37,19 @@ const App = ({ search }) => {
 
   return (
     <Layout title="App">
-      <Wrap className="shadow" p="1rem" w="100%" spacing="1rem">
+      <Wrap
+        className="shadow"
+        p="1rem"
+        w="100%"
+        spacing="1rem"
+        bgColor="rgba( 255, 255, 255, 0.4 )"
+        borderWidth="0.05rem"
+        borderColor="white"
+        style={{
+          'backdrop-filter': 'blur(16px)',
+          '-webkit-backdrop-filter': 'blur(16px)',
+        }}
+      >
         <WrapItem flex="1 0 calc(70% - 1rem)">
           <Header />
         </WrapItem>

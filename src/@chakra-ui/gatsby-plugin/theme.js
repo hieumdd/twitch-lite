@@ -3,7 +3,7 @@ import { extendTheme } from '@chakra-ui/react';
 export default extendTheme({
   styles: {
     global: {
-      '*:not(svg)': {
+      '*:not(.container)': {
         borderStyle: 'solid',
         borderRadius: 'lg',
       },

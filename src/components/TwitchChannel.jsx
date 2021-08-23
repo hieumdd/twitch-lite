@@ -12,8 +12,14 @@ const TwitchChannel = ({ channel, onChange }) => (
   <Flex as="form" flex="3">
     <FormControl isRequired>
       <InputGroup>
-        <InputLeftAddon children="https://twitch.tv/" />
-        <Input type="text" value={channel} onChange={onChange} />
+        <InputLeftAddon children="https://twitch.tv/" textColor="gray.800" />
+        <Input
+          type="text"
+          bgColor="white"
+          textColor="gray.800"
+          value={channel}
+          onChange={onChange}
+        />
       </InputGroup>
     </FormControl>
   </Flex>

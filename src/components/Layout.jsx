@@ -6,7 +6,13 @@ import { Center } from '@chakra-ui/react';
 import SEO from './SEO';
 
 const Layout = ({ title, children }) => (
-  <Center w="100vw" h="100vh">
+  <Center
+    className="container"
+    w="100vw"
+    h="100vh"
+    bgColor="#6441a5"
+    bgGradient="radial-gradient(#2a0845, #6441A5)"
+  >
     <SEO title={title} />
     <Center w="90%" h="90%">
       {children}
