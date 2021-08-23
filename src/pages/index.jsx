@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-import { Center, Wrap, WrapItem } from '@chakra-ui/react';
+import { Wrap, WrapItem } from '@chakra-ui/react';
 
+import Layout from '../components/Layout';
 import Header from '../components/Header';
 import TwitchChannel from '../components/TwitchChannel';
 import TwitchPlayer from '../components/TwitchPlayer';
@@ -30,32 +31,30 @@ const App = () => {
   }, [channel]);
 
   return (
-    <Center w="100vw" h="100vh">
-      <Center w="90%" h="90%">
-        <Wrap className="shadow" p="1rem" w="100%" spacing="1rem">
-          <WrapItem flex="1 0 calc(70% - 1rem)">
-            <Header />
-          </WrapItem>
-          <WrapItem className="shadow" flex="1 0 calc(30% - 1rem)">
-            <TwitchChannel channel={channel} onChange={handleChange} />
-          </WrapItem>
-          <WrapItem className="shadow" flex="1 0 calc(70% - 1rem)">
-            <TwitchPlayer
-              loading={loading}
-              handleLoading={handleLoading}
-              channel={channel}
-            />
-          </WrapItem>
-          <WrapItem className="shadow" flex="1 0 calc(30% - 1rem)">
-            <TwitchChat
-              loading={loading}
-              handleLoading={handleLoading}
-              channel={channel}
-            />
-          </WrapItem>
-        </Wrap>
-      </Center>
-    </Center>
+    <Layout title="App">
+      <Wrap className="shadow" p="1rem" w="100%" spacing="1rem">
+        <WrapItem flex="1 0 calc(70% - 1rem)">
+          <Header />
+        </WrapItem>
+        <WrapItem className="shadow" flex="1 0 calc(30% - 1rem)">
+          <TwitchChannel channel={channel} onChange={handleChange} />
+        </WrapItem>
+        <WrapItem className="shadow" flex="1 0 calc(70% - 1rem)">
+          <TwitchPlayer
+            loading={loading}
+            handleLoading={handleLoading}
+            channel={channel}
+          />
+        </WrapItem>
+        <WrapItem className="shadow" flex="1 0 calc(30% - 1rem)">
+          <TwitchChat
+            loading={loading}
+            handleLoading={handleLoading}
+            channel={channel}
+          />
+        </WrapItem>
+      </Wrap>
+    </Layout>
   );
 };
 
