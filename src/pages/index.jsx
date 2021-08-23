@@ -17,13 +17,16 @@ const DEFAULT_CHANNEL = 'monstercat';
 
 const App = ({ search }) => {
   const [channel, setChannel] = useState(
-    search.channel || localStorage.getItem('channel') || DEFAULT_CHANNEL,
+    search.channel ||
+      (typeof window !== 'undefined' &&
+        window.localStorage.getItem('channel')) ||
+      DEFAULT_CHANNEL,
   );
+  const [debouncedChannel, setDebouncedChannel] = useState(channel);
   const [loading, setLoading] = useState(true);
 
   const handleChange = (event) => {
-    setLoading(true);
-    setChannel(event.target.value || DEFAULT_CHANNEL);
+    setChannel(event.target.value);
   };
 
   const handleLoading = () => {
@@ -31,8 +34,20 @@ const App = ({ search }) => {
   };
 
   useEffect(() => {
-    localStorage.setItem('channel', channel);
-    navigate(queryString.stringifyUrl({ url: '/', query: { channel } }));
+    let wait;
+    if (channel) {
+      wait = setTimeout(() => {
+        setDebouncedChannel(channel || DEFAULT_CHANNEL);
+        window.localStorage.setItem('channel', channel);
+        navigate(queryString.stringifyUrl({ url: '/', query: { channel } }));
+        setLoading(true);
+      }, 1000);
+    } else {
+      wait = setTimeout(() => {
+        setChannel(DEFAULT_CHANNEL);
+      }, 10000);
+    }
+    return () => clearTimeout(wait);
   }, [channel]);
 
   return (
@@ -66,7 +81,7 @@ const App = ({ search }) => {
           <TwitchPlayer
             loading={loading}
             handleLoading={handleLoading}
-            channel={channel}
+            channel={debouncedChannel}
           />
         </WrapItem>
         <WrapItem
@@ -76,7 +91,7 @@ const App = ({ search }) => {
           <TwitchChat
             loading={loading}
             handleLoading={handleLoading}
-            channel={channel}
+            channel={debouncedChannel}
           />
         </WrapItem>
       </Wrap>
